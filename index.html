@@ -6,7 +6,7 @@
 </head>
 <body>
   <button id="Ollie">Ollie!</button>
-  <p>Tricks: <strong id="output">0</strong></p>
+  <p id="clicks">0</p>
 </body>
 </html>
 
@@ -14,7 +14,7 @@
   let count = 0;
 
   const ClickButton = document.getElementById('Ollie');
-  const clickDisplay = document.getElementByID('output');
+  const clickDisplay = document.getElementByID('clicks');
 
   ClickButton.addEventListener('Click', function(){
     count++;
