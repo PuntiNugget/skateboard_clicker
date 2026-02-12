@@ -3,56 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <title>Skateboard Clicker</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
+  </style>
 </head>
 <body>
   <h1>Skateboard Clicker :3</h1>
   
-  <button id="Ollie">Ollie!</button>
-  <button id="Poser">Poser 10</button>
+  <button id="btn-ollie">Ollie!</button>
+  <button id="btn-buy-poser">Hire Poser (Cost: 10)</button>
   
-  <p id="clicks">0</p>
-  <p id="posers">0</p>
+  <h3>Ollies: <span id="display-ollies">0</span></h3>
+  <h3>Posers Hired: <span id="display-posers">0</span></h3>
 
   <script>
-    let ollies = 0;
-    let poser = 0;
+    let ollieCount = 0;
+    let poserCount = 0;
+    let poserCost = 10;
 
-    const ollie = document.getElementById('Ollie');
-    const poser = document.getElementById('Poser');
+    const ollieBtn = document.getElementById('btn-ollie');
+    const poserBtn = document.getElementById('btn-buy-poser');
+    const ollieDisplay = document.getElementById('display-ollies');
+    const poserDisplay = document.getElementById('display-posers');
+
+    function updateDisplay() {
+      ollieDisplay.textContent = ollieCount;
+      poserDisplay.textContent = poserCount;
     
-    const clicks = document.getElementById('clicks');
-    const posers = document.getElementById('posers');
-
-    function waitFor(milliseconds) {
-      const startTime = new Date();
-      let currentTime = null;
-      do {
-        currentTime = new Date();
-      } while (currentTime - startTime < milliseconds);
-    }
-
-    ollie.addEventListener('click', function() {
-      count++;
-      
-      clicks.textContent = ollies.toString();
-    });
-
-    poser.addEventListener('click', function(){
-      if (count === 10){
-        alert("you've bought one poser!");
-        posers++;
-
-        poser.textContent = poser.toString();
-        poserFunction.call():
-      }
-    });
-
-    function poserFunction(){
-      if (poser >= 1){
-        waitFor.call(100);
-        count++;
+      if (ollieCount < poserCost) {
+        poserBtn.disabled = true;
+      } else {
+        poserBtn.disabled = false;
       }
     }
+
+    ollieBtn.addEventListener('click', function() {
+      ollieCount++;
+      updateDisplay();
+    });
+
+    poserBtn.addEventListener('click', function(){
+      if (ollieCount >= poserCost){
+        ollieCount = ollieCount - poserCost; 
+        poserCount++;
+        poserCost = Math.floor(poserCost * 1.5); 
+        poserBtn.textContent = "Hire Poser (Cost: " + poserCost + ")";
+        
+        updateDisplay();
+      } else {
+        alert("You need more ollies to hire a poser!");
+      }
+    });
+    
+    setInterval(function() {
+      if (poserCount > 0) {
+        ollieCount = ollieCount + poserCount;
+        updateDisplay();
+      }
+    }, 1000);
+
+    // Initial setup
+    updateDisplay();
+
   </script>
 </body>
 </html>
