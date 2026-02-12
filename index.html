@@ -48,9 +48,11 @@
     });
 
     function poserFunction(){
-      waitFor.call(100);
-      count++;
-    };
+      if (poser >= 1){
+        waitFor.call(100);
+        count++;
+      }
+    }
   </script>
 </body>
 </html>
