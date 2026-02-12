@@ -4,7 +4,7 @@ const ClickButton = document.getElementById('Ollie');
 const clickDisplay = document.getElementByID('output');
 
 ClickButton.addEventListener('Click', function(){
-  count++
+  count++;
 
   clickDisplay.textcontent = count;
 });
