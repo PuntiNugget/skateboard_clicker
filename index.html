@@ -14,31 +14,37 @@
   <button id="btn-ollie">Ollie!</button>
   <button id="btn-buy-poser">Hire Poser (Cost: 10)</button>
   <button id="btn-buy-beginner">Hire Beginner (Cost: 100)</button>
+  <button id="btn-buy-pro">Hire Pro (Cost: 500)</button>
   
   <h3>Ollies: <span id="display-ollies">0</span></h3>
   <h3>Posers Hired: <span id="display-posers">0</span></h3>
   <h3>Beginners Hired: <span id="display-beginners">0</span></h3>
+  <h3>Pros Hired: <span id="display-pros">0</span></h3>
 
   <script>
     let ollieCount = 0;
     let poserCount = 0;
     let beginnerCount = 0;
+    let proCount = 0;
     let poserCost = 10;
     let beginnerCost = 100;
+    let proCost = 500
 
     const ollieBtn = document.getElementById('btn-ollie');
     const poserBtn = document.getElementById('btn-buy-poser');
-    // FIX 1: Fixed spelling of "document"
     const beginnerBtn = document.getElementById('btn-buy-beginner');
+    const proBtn = document.getElementById('btn-buy-pro');
     
     const ollieDisplay = document.getElementById('display-ollies');
     const poserDisplay = document.getElementById('display-posers');
     const beginnerDisplay = document.getElementById('display-beginners');
+    const proDisplay = document.getElementById('display-pros');
 
     function updateDisplay() {
-      ollieDisplay.textContent = Math.floor(ollieCount); // Optional: floor to keep integers
+      ollieDisplay.textContent = Math.floor(ollieCount);
       poserDisplay.textContent = poserCount;
       beginnerDisplay.textContent = beginnerCount;
+      proDisplay.textContent = proCount
       
       // Update Poser Button
       if (ollieCount < poserCost) {
@@ -51,8 +57,14 @@
       if (ollieCount < beginnerCost){
         beginnerBtn.disabled = true;
       } else {
-        // FIX 2: Fixed logic to enable the correct button (beginnerBtn)
         beginnerBtn.disabled = false;
+      }
+
+       // Update pro Button
+      if (ollieCount < beginnerCost){
+        proBtn.disabled = true;
+      } else {
+        proBtn.disabled = false;
       }
     }
 
@@ -80,6 +92,16 @@
         updateDisplay();
       }
     });
+
+    beginnerBtn.addEventListener('click', function(){
+      if (ollieCount >= proCost){
+        ollieCount -= proCost; 
+        proCount++;
+        proCost = Math.floor(proCost * 1.5); 
+        proBtn.textContent = "Hire Pro (Cost: " + proCost + ")";
+        updateDisplay();
+      }
+    });
     
     // Game Loop (Runs every 1 second)
     setInterval(function() {
@@ -90,9 +112,11 @@
       }
       
       if (beginnerCount > 0){
-        // FIX 3 & 4: Fixed variable case and math logic
-        // Assuming beginners give 10x more points than posers
         pointsToAdd += (beginnerCount * 10); 
+      }
+
+      if (proCount > 0){
+        pointsToAdd += (proCount * 50); 
       }
 
       // Only update if points were added to avoid unnecessary redraws
