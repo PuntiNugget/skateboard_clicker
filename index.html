@@ -13,28 +13,38 @@
   
   <button id="btn-ollie">Ollie!</button>
   <button id="btn-buy-poser">Hire Poser (Cost: 10)</button>
+  <button id="btn-buy-poser">Hire Beginner (Cost: 100</button>
   
   <h3>Ollies: <span id="display-ollies">0</span></h3>
   <h3>Posers Hired: <span id="display-posers">0</span></h3>
+  <h3>Beginners Hired: <span id="display-beginners">0</span></h3>
 
   <script>
     let ollieCount = 0;
     let poserCount = 0;
+    let beginnerCount = 0;
     let poserCost = 10;
+    let beginnerCost = 100;
 
     const ollieBtn = document.getElementById('btn-ollie');
     const poserBtn = document.getElementById('btn-buy-poser');
     const ollieDisplay = document.getElementById('display-ollies');
     const poserDisplay = document.getElementById('display-posers');
+    const beginnerDisplay = document.getElementById('display-beginners');
 
     function updateDisplay() {
       ollieDisplay.textContent = ollieCount;
       poserDisplay.textContent = poserCount;
+      beginnerDisplay.textContent = beginnerCount;
     
       if (ollieCount < poserCost) {
         poserBtn.disabled = true;
       } else {
         poserBtn.disabled = false;
+      }
+
+      if (ollieCount < beginnerCost){
+        
       }
     }
 
